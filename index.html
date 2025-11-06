@@ -1,33 +1,66 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>My Website</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>0mn1mate — Coming Soon</title>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --text: #ffffff;
+      --muted: #a0a0a0;
+      --accent: #2b6cff;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      padding: 1rem;
+    }
+    h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 1rem;
+    }
+    p {
+      color: var(--muted);
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin-bottom: 2rem;
+    }
+    .loader {
+      width: 48px;
+      height: 48px;
+      border: 4px solid var(--muted);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    footer {
+      position: absolute;
+      bottom: 1rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+  </style>
 </head>
 <body>
-  <header class="container">
-    <nav class="nav">
-      <a href="index.html" class="brand">MyBrand</a>
-      <ul class="menu">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="#">About</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <main class="container">
-    <section class="hero">
-      <h1>Welcome!</h1>
-      <p>This is my first site from Figma → code → GitHub Pages.</p>
-      <a class="btn" href="#cta">Get Started</a>
-    </section>
-  </main>
-
-  <footer class="container"><p>© 2025 My Name</p></footer>
-  <script src="js/main.js"></script>
+  <h1>0mn1mate</h1>
+  <p>Our new digital experience is in development.<br>Stay tuned for updates soon.</p>
+  <div class="loader"></div>
+  <footer>© 2025 0mn1mate | Built with 💻 by Sudeepta Murthy</footer>
 </body>
 </html>
