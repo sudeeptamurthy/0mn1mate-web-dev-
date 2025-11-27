@@ -1,58 +1,324 @@
 :root {
-    --bg: #fff;
-    --text: #111;
-    --muted: #666;
-    --accent: #2b6cff;
-    --radius: 12px;
-    --container: 1100px;
-    --gap: 1.25rem;
+  --bg-dark: #000000;
+  --bg-nav: #1a1a1a;
+  --text-white: #ffffff;
+  --accent-purple: #8b5cf6;
+  --text-muted: #a0a0a0;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Aldrich', sans-serif;
+  background-color: var(--bg-dark);
+  color: var(--text-white);
+  overflow-x: hidden;
+}
+
+/* Navigation Bar */
+.navbar {
+  background-color: var(--bg-nav);
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo-img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.logo-placeholder {
+  width: 40px;
+  height: 40px;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-menu {
+  display: flex;
+  list-style: none;
+  gap: 2rem;
+  align-items: center;
+  flex: 1;
+  justify-content: center;
+}
+
+.nav-link {
+  color: var(--text-white);
+  text-decoration: none;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  transition: opacity 0.3s ease;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.nav-link:hover {
+  opacity: 0.7;
+}
+
+.nav-link.active {
+  opacity: 1;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown-arrow {
+  font-size: 0.7rem;
+  margin-left: 0.2rem;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: var(--bg-nav);
+  list-style: none;
+  padding: 0.5rem 0;
+  margin-top: 0.5rem;
+  min-width: 180px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dropdown:hover .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown-menu li {
+  padding: 0;
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 0.75rem 1.5rem;
+  color: var(--text-white);
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: background-color 0.3s ease;
+}
+
+.dropdown-menu a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.btn-get-started {
+  background-color: var(--accent-purple);
+  color: var(--text-white);
+  padding: 0.7rem 1.5rem;
+  text-decoration: none;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-get-started:hover {
+  background-color: #7c3aed;
+  transform: translateY(-2px);
+}
+
+/* Main Content */
+.main-content {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  min-height: calc(100vh - 80px);
+  gap: 0;
+}
+
+/* Left Side: Game Information */
+.game-info-section {
+  background-color: var(--bg-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 3rem;
+}
+
+.game-info-content {
+  max-width: 600px;
+  text-align: left;
+}
+
+.headline {
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--text-white);
+  margin-bottom: 2rem;
+  letter-spacing: 0.5px;
+  line-height: 1.4;
+}
+
+.game-title {
+  font-size: 6rem;
+  font-weight: 400;
+  color: var(--text-white);
+  margin-bottom: 1.5rem;
+  letter-spacing: 2px;
+  line-height: 1;
+}
+
+.game-description {
+  font-size: 1.1rem;
+  color: var(--text-white);
+  margin-bottom: 3rem;
+  line-height: 1.6;
+  letter-spacing: 0.3px;
+}
+
+.btn-play-now {
+  display: inline-block;
+  background-color: var(--text-white);
+  color: var(--bg-dark);
+  padding: 1rem 2.5rem;
+  text-decoration: none;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  border-radius: 4px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  font-weight: 400;
+}
+
+.btn-play-now:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+}
+
+/* Right Side: 3D Modeling Interface */
+.modeling-section {
+  background-color: var(--bg-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  overflow: hidden;
+}
+
+.modeling-viewport {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.blender-screenshot {
+  width: 100%;
+  height: auto;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 4px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.placeholder-3d {
+  width: 100%;
+  height: 600px;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  border: 2px dashed rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.placeholder-content {
+  text-align: center;
+  color: var(--text-muted);
+}
+
+.placeholder-content h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.placeholder-content p {
+  font-size: 1rem;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .game-title {
+    font-size: 4.5rem;
   }
   
-  body {
-    margin: 0;
-    font-family: Inter, system-ui, sans-serif;
-    color: var(--text);
-    background: var(--bg);
+  .main-content {
+    grid-template-columns: 1fr;
   }
   
-  .container {
-    max-width: var(--container);
-    margin: 0 auto;
+  .modeling-section {
+    min-height: 500px;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-container {
+    flex-wrap: wrap;
     padding: 0 1rem;
   }
   
-  .nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 0;
-  }
-  
-  .menu {
-    display: flex;
-    list-style: none;
+  .nav-menu {
+    order: 3;
+    width: 100%;
+    justify-content: flex-start;
     gap: 1rem;
-    padding: 0;
+    margin-top: 1rem;
+    flex-wrap: wrap;
   }
   
-  .menu a {
-    text-decoration: none;
-    color: var(--text);
+  .btn-get-started {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.85rem;
   }
   
-  .hero {
-    padding: 6rem 0;
-    display: grid;
-    gap: var(--gap);
+  .game-title {
+    font-size: 3.5rem;
   }
   
-  .btn {
-    display: inline-block;
-    background: var(--accent);
-    color: white;
-    padding: 0.8rem 1.2rem;
-    border-radius: var(--radius);
-    text-decoration: none;
-    font-weight: 600;
+  .headline {
+    font-size: 1.2rem;
   }
   
+  .game-description {
+    font-size: 1rem;
+  }
+  
+  .game-info-section {
+    padding: 3rem 2rem;
+  }
+}
