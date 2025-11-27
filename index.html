@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>OMNIMATE — Own your droid. Dominate the battlefield.</title>
+  <title>0MN1MATE — Own your droid. Dominate the battlefield.</title>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Aldrich&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
@@ -13,7 +13,7 @@
   <nav class="navbar">
     <div class="nav-container">
       <div class="logo">
-        <img src="assets/icons/robot-logo.png" alt="OMNIMATE Logo" class="logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+        <img src="assets/icons/robot-logo.png" alt="0MN1MATE Logo" class="logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
         <div class="logo-placeholder" style="display: none;">🤖</div>
       </div>
       <ul class="nav-menu">
@@ -33,29 +33,23 @@
     </div>
   </nav>
 
-  <!-- Main Content -->
-  <main class="main-content">
-    <!-- Left Side: Game Information -->
-    <div class="game-info-section">
-      <div class="game-info-content">
-        <h2 class="headline">Own your droid. Dominate the battlefield.</h2>
-        <h1 class="game-title">OMNIMATE</h1>
-        <p class="game-description">A team-based, fast-paced tactical shooter, powered by true player ownership.</p>
-        <a href="get-started.html" class="btn-play-now">PLAY NOW</a>
-      </div>
+  <!-- Hero Section with Video Background -->
+  <main class="hero-section">
+    <!-- Video Background -->
+    <div class="video-background">
+      <video autoplay muted loop playsinline class="background-video">
+        <source src="assets/videos/robot-running.mp4" type="video/mp4">
+        <source src="assets/videos/robot-running.webm" type="video/webm">
+        <!-- Fallback if video doesn't load -->
+      </video>
+      <div class="video-overlay"></div>
     </div>
 
-    <!-- Right Side: 3D Modeling Interface -->
-    <div class="modeling-section">
-      <div class="modeling-viewport">
-        <img src="assets/images/blender-screenshot.png" alt="3D Model Development" class="blender-screenshot" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-        <div class="placeholder-3d" style="display: none;">
-          <div class="placeholder-content">
-            <h3>3D Model Development</h3>
-            <p>Development preview coming soon</p>
-          </div>
-        </div>
-      </div>
+    <!-- Centered Content -->
+    <div class="hero-content">
+      <h1 class="game-title">0MN1MATE</h1>
+      <p class="game-subtitle">0MN1MATE — A TEAM-BASED, FAST-PACED TACTICAL SHOOTER, POWERED BY TRUE PLAYER OWNERSHIP.</p>
+      <a href="get-started.html" class="btn-play-free">PLAY FOR FREE</a>
     </div>
   </main>
 </body>
