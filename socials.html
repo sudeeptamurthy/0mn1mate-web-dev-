@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Aldrich&family=Krona+One&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./css/styles.css">
+  <script src="./js/messages.js" defer></script>
   <style>
     .socials-container {
       max-width: 1200px;
@@ -25,6 +26,7 @@
       padding: 4rem 3rem;
       width: 100%;
       max-width: 800px;
+      margin: 0 auto;
       text-align: center;
       backdrop-filter: blur(10px);
       border: 1px solid rgba(255, 255, 255, 0.1);
@@ -77,12 +79,17 @@
       transition: all 0.3s ease;
       margin-bottom: 2.5rem;
       text-transform: uppercase;
+      cursor: pointer;
     }
 
     .btn-notify:hover {
       background-color: var(--accent-blue);
       transform: translateY(-2px);
       box-shadow: 0 4px 20px rgba(82, 151, 255, 0.4);
+    }
+
+    .btn-notify:active {
+      transform: translateY(0);
     }
 
     .btn-notify-arrow {
@@ -161,7 +168,10 @@
     /* Instagram camera outline */
     .social-icon.instagram-icon {
       fill: none;
-      transform: scale(0.8);          /* slightly smaller so it breathes */
+      transform: scale(1.5);
+      transform-origin: 50% 50%;
+      width: 28px;
+      height: 28px;
     }
 
     .social-icon.instagram-icon rect,
@@ -208,6 +218,296 @@
         height: 24px;
       }
     }
+
+    /* Notify Modal Styles */
+    .notify-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .notify-modal.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .notify-modal-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(5px);
+    }
+
+    .notify-modal-content {
+      position: relative;
+      background-color: #282433;
+      border-radius: 12px;
+      padding: 2.5rem 2.5rem 2.5rem;
+      max-width: 480px;
+      width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+      z-index: 10001;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      border: 1px solid rgba(155, 114, 244, 0.2);
+    }
+
+    .notify-modal-content::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .notify-modal-content::-webkit-scrollbar-track {
+      background: rgba(74, 69, 86, 0.3);
+      border-radius: 4px;
+    }
+
+    .notify-modal-content::-webkit-scrollbar-thumb {
+      background: rgba(155, 114, 244, 0.4);
+      border-radius: 4px;
+    }
+
+    .notify-modal-content::-webkit-scrollbar-thumb:hover {
+      background: rgba(155, 114, 244, 0.6);
+    }
+
+    .notify-modal-back {
+      position: absolute;
+      top: 0.75rem;
+      left: 1.25rem;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: rgba(155, 114, 244, 0.15);
+      border: 1px solid rgba(155, 114, 244, 0.3);
+      color: #9B72F4;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      z-index: 10002;
+      padding: 0;
+    }
+
+    .notify-modal-back:hover {
+      background-color: rgba(155, 114, 244, 0.25);
+      border-color: #9B72F4;
+      transform: scale(1.05);
+    }
+
+    .notify-modal-back:active {
+      transform: scale(0.95);
+    }
+
+    .notify-modal-back svg {
+      width: 20px;
+      height: 20px;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      display: block;
+    }
+
+    .notify-error-message {
+      position: absolute;
+      top: 0.75rem;
+      left: 4.5rem;
+      background-color: rgba(40, 36, 51, 0.95);
+      color: var(--text-white);
+      padding: 0.625rem 0.875rem;
+      border-radius: 6px;
+      font-family: 'Krona One', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(155, 114, 244, 0.3);
+      z-index: 10003;
+      white-space: nowrap;
+    }
+
+    .notify-form {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .notify-input,
+    .notify-textarea {
+      width: 100%;
+      background-color: rgba(74, 69, 86, 0.3);
+      border: 1px solid #9B72F4;
+      border-radius: 8px;
+      padding: 0.875rem 1.25rem;
+      color: var(--text-white);
+      font-family: 'Krona One', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.5px;
+      text-transform: none;
+      transition: all 0.3s ease;
+      outline: none;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .notify-input::-webkit-input-placeholder,
+    .notify-textarea::-webkit-input-placeholder {
+      text-transform: uppercase;
+    }
+
+    .notify-input::-moz-placeholder,
+    .notify-textarea::-moz-placeholder {
+      text-transform: uppercase;
+    }
+
+    .notify-input:-ms-input-placeholder,
+    .notify-textarea:-ms-input-placeholder {
+      text-transform: uppercase;
+    }
+
+    .notify-input::placeholder,
+    .notify-textarea::placeholder {
+      color: #85798E;
+      text-transform: uppercase;
+      opacity: 0.7;
+    }
+
+    .notify-input:focus,
+    .notify-textarea:focus {
+      border-color: #9B72F4;
+      background-color: rgba(74, 69, 86, 0.5);
+      box-shadow: 0 0 0 2px rgba(155, 114, 244, 0.15);
+    }
+
+    .notify-input:invalid:not(:focus):not(:placeholder-shown),
+    .notify-textarea:invalid:not(:focus):not(:placeholder-shown) {
+      border-color: rgba(175, 71, 188, 0.5);
+    }
+
+    .notify-textarea {
+      border-radius: 8px;
+      min-height: 140px;
+      resize: vertical;
+      font-family: 'Krona One', sans-serif;
+      line-height: 1.5;
+      text-transform: none;
+      padding-top: 1rem;
+    }
+
+    .notify-textarea::-webkit-resizer {
+      background: rgba(155, 114, 244, 0.2);
+      border: 1px solid rgba(155, 114, 244, 0.4);
+      border-radius: 2px;
+    }
+
+    .notify-submit-btn {
+      width: 100%;
+      background-color: rgba(74, 69, 86, 0.6);
+      border: 1px solid rgba(155, 114, 244, 0.4);
+      border-radius: 8px;
+      padding: 0.875rem 2rem;
+      color: #9B72F4;
+      font-family: 'Krona One', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 0.5rem;
+      font-weight: 400;
+    }
+
+    .notify-submit-btn:hover {
+      background-color: rgba(90, 85, 102, 0.8);
+      border-color: #9B72F4;
+      color: #AF47BC;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(155, 114, 244, 0.25);
+    }
+
+    .notify-submit-btn:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 6px rgba(155, 114, 244, 0.2);
+    }
+
+    .notify-success-message {
+      width: 100%;
+      text-align: center;
+      padding: 1.25rem 1.5rem;
+      color: var(--text-white);
+      font-family: 'Krona One', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.5px;
+      background-color: rgba(82, 151, 255, 0.15);
+      border-radius: 8px;
+      border: 1px solid rgba(82, 151, 255, 0.3);
+      line-height: 1.5;
+    }
+
+    .notify-success-message p {
+      margin: 0;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 768px) {
+      .notify-modal-content {
+        padding: 2.5rem 1.5rem 2rem;
+        width: 95%;
+        border-radius: 10px;
+      }
+
+      .notify-modal-back {
+        top: 0.75rem;
+        left: 1rem;
+        width: 36px;
+        height: 36px;
+      }
+
+      .notify-modal-back svg {
+        width: 18px;
+        height: 18px;
+      }
+
+      .notify-error-message {
+        top: 0.75rem;
+        left: 3.75rem;
+        font-size: 0.65rem;
+        padding: 0.5rem 0.75rem;
+        max-width: calc(100% - 4.5rem);
+        white-space: normal;
+      }
+
+      .notify-input,
+      .notify-textarea {
+        padding: 0.75rem 1rem;
+        font-size: 0.8rem;
+      }
+
+      .notify-textarea {
+        min-height: 120px;
+      }
+
+      .notify-submit-btn {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.8rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -240,12 +540,12 @@
       <h1 class="socials-title">JOIN THE DISCUSSION</h1>
       <div class="socials-play-now">PLAY NOW</div>
       
-      <a href="#notify" class="btn-notify">
+      <button type="button" class="btn-notify" id="openNotifyModal">
         GET NOTIFIED FOR UPDATES
         <svg class="btn-notify-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M5 12h14M12 5l7 7-7 7"/>
         </svg>
-      </a>
+      </button>
 
       <div class="socials-icons-grid">
         <!-- X / Twitter -->
@@ -264,7 +564,7 @@
         
         <!-- Instagram -->
         <a href="https://www.instagram.com/0mn1mate/" target="_blank" rel="noopener noreferrer" class="social-icon-link instagram" aria-label="Instagram">
-          <svg class="social-icon instagram-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <svg class="social-icon instagram-icon" viewBox="2 2 20 20" aria-hidden="true">
             <!-- outer rounded square -->
             <rect x="4" y="4" width="16" height="16" rx="5" ry="5" />
             <!-- camera lens -->
@@ -283,6 +583,55 @@
       </div>
     </div>
   </main>
+
+  <!-- Notify Modal -->
+  <div id="notifyModal" class="notify-modal" aria-hidden="true">
+    <div class="notify-modal-overlay"></div>
+    <div class="notify-modal-content">
+      <button type="button" class="notify-modal-back" id="closeNotifyModal" aria-label="Close modal">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 18l-6-6 6-6"/>
+        </svg>
+      </button>
+      
+      <div class="notify-error-message" id="notifyErrorMessage" style="display: none;"></div>
+      
+      <form id="notifyForm" class="notify-form">
+        <input 
+          type="text" 
+          id="notifyName" 
+          name="name" 
+          class="notify-input" 
+          placeholder="NAME" 
+          required 
+          aria-label="Name"
+        >
+        <input 
+          type="email" 
+          id="notifyEmail" 
+          name="email" 
+          class="notify-input" 
+          placeholder="EMAIL" 
+          required 
+          aria-label="Email"
+        >
+        <textarea 
+          id="notifyMessage" 
+          name="message" 
+          class="notify-textarea" 
+          placeholder="MESSAGE" 
+          rows="6" 
+          required 
+          aria-label="Message"
+        ></textarea>
+        <button type="submit" class="notify-submit-btn">SUBMIT</button>
+      </form>
+      
+      <div class="notify-success-message" id="notifySuccessMessage" style="display: none;">
+        <p>Thank you! Your message has been received.</p>
+      </div>
+    </div>
+  </div>
 
   <footer class="footer">
     <div class="footer-container">
@@ -319,5 +668,163 @@
       </div>
     </div>
   </footer>
+
+  <script>
+    // Notify Modal Functionality
+    (function() {
+      const modal = document.getElementById('notifyModal');
+      const openBtn = document.getElementById('openNotifyModal');
+      const closeBtn = document.getElementById('closeNotifyModal');
+      const form = document.getElementById('notifyForm');
+      const errorMessage = document.getElementById('notifyErrorMessage');
+      const successMessage = document.getElementById('notifySuccessMessage');
+      const overlay = modal.querySelector('.notify-modal-overlay');
+
+      // Open modal
+      openBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        // Focus first input
+        setTimeout(() => {
+          document.getElementById('notifyName').focus();
+        }, 100);
+      });
+
+      // Close modal
+      function closeModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+        form.reset();
+        errorMessage.style.display = 'none';
+        successMessage.style.display = 'none';
+      }
+
+      closeBtn.addEventListener('click', closeModal);
+      overlay.addEventListener('click', closeModal);
+
+      // Close on Escape key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+          closeModal();
+        }
+      });
+
+      // Form validation and submission
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const name = document.getElementById('notifyName').value.trim();
+        const email = document.getElementById('notifyEmail').value.trim();
+        const message = document.getElementById('notifyMessage').value.trim();
+
+        // Hide previous messages
+        errorMessage.style.display = 'none';
+        successMessage.style.display = 'none';
+
+        // Validate fields
+        if (!name) {
+          showError('Please fill out the name field.');
+          document.getElementById('notifyName').focus();
+          return;
+        }
+
+        if (!email) {
+          showError('Please fill out the email field.');
+          document.getElementById('notifyEmail').focus();
+          return;
+        }
+
+        // Basic email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+          showError('Please enter a valid email address.');
+          document.getElementById('notifyEmail').focus();
+          return;
+        }
+
+        if (!message) {
+          showError('Please fill out the message field.');
+          document.getElementById('notifyMessage').focus();
+          return;
+        }
+
+        // Create message object
+        const messageData = {
+          id: Date.now(),
+          name: name,
+          email: email,
+          message: message,
+          timestamp: new Date().toISOString(),
+          date: new Date().toLocaleString()
+        };
+
+        // Store message in localStorage
+        let messages = JSON.parse(localStorage.getItem('notifyMessages') || '[]');
+        messages.push(messageData);
+        
+        // Keep only last 100 messages
+        if (messages.length > 100) {
+          messages = messages.slice(-100);
+        }
+        
+        localStorage.setItem('notifyMessages', JSON.stringify(messages));
+
+        // Show success message
+        successMessage.style.display = 'block';
+        form.style.display = 'none';
+
+        // Reset form
+        form.reset();
+
+        // Log to console for debugging (messages are stored in localStorage)
+        console.log('Message received:', messageData);
+        console.log('Total messages stored:', messages.length);
+
+        // Scroll to success message
+        successMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+        // After 3 seconds, show form again or close modal
+        setTimeout(() => {
+          form.style.display = 'flex';
+          successMessage.style.display = 'none';
+          // Optionally close modal after showing success
+          // setTimeout(closeModal, 1000);
+        }, 3000);
+      });
+
+      // Show error message
+      function showError(text) {
+        errorMessage.textContent = text;
+        errorMessage.style.display = 'block';
+        
+        // Hide error after 5 seconds
+        setTimeout(() => {
+          errorMessage.style.display = 'none';
+        }, 5000);
+      }
+
+      // Real-time validation
+      const inputs = form.querySelectorAll('.notify-input, .notify-textarea');
+      inputs.forEach(input => {
+        input.addEventListener('invalid', function(e) {
+          e.preventDefault();
+          showError('Please fill out this field.');
+        });
+
+        input.addEventListener('blur', function() {
+          if (this.hasAttribute('required') && !this.value.trim()) {
+            showError('Please fill out this field.');
+          } else {
+            errorMessage.style.display = 'none';
+          }
+        });
+
+        input.addEventListener('input', function() {
+          errorMessage.style.display = 'none';
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
