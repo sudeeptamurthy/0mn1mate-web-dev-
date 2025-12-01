@@ -13,12 +13,48 @@
       margin: 0 auto;
       padding: 4rem 2rem;
       background-color: var(--bg-dark);
+      position: relative;
     }
 
     /* Header Section */
     .key-features-header {
       text-align: center;
       margin-bottom: 6rem;
+      position: relative;
+      overflow: hidden;
+      padding: 2rem 0;
+      margin-left: -2rem;
+      margin-right: -2rem;
+      padding-left: 2rem;
+      padding-right: 2rem;
+      margin-top: -80px;
+      padding-top: calc(2rem + 80px);
+    }
+
+    .key-features-header-image {
+      position: absolute;
+      top: -80px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100vw;
+      height: calc(100% + 80px + 2rem);
+      object-fit: cover;
+      object-position: center;
+      z-index: 0;
+      opacity: 0.15;
+    }
+
+    /* Prevent horizontal overflow from 100vw */
+    body {
+      overflow-x: hidden;
+    }
+
+    .key-features-header h2,
+    .key-features-header h1,
+    .key-features-header p,
+    .key-features-header .feature-preview-grid {
+      position: relative;
+      z-index: 1;
     }
 
     .key-features-header h2 {
@@ -54,13 +90,13 @@
 
     .key-features-header p {
       font-family: 'Krona One', sans-serif;
-      font-size: 1.1rem;
+      font-size: 0.95rem;
       color: var(--text-white);
       line-height: 1.8;
       letter-spacing: 0.5px;
       max-width: 800px;
       margin: 0 auto 4rem;
-      font-weight: normal;
+      font-weight: 300;
     }
 
     /* Feature Preview Cards */
@@ -167,14 +203,14 @@
 
     .feature-content {
       font-family: 'Krona One', sans-serif;
-      font-size: 1.1rem;
+      font-size: 0.95rem;
       line-height: 1.8;
       color: var(--text-white);
       letter-spacing: 0.5px;
       text-align: center;
       max-width: 900px;
       margin: 0 auto;
-      font-weight: normal;
+      font-weight: 300;
     }
 
     .feature-content p {
@@ -211,7 +247,7 @@
       }
 
       .key-features-header p {
-        font-size: 1rem;
+        font-size: 0.9rem;
       }
 
       .feature-subtitle {
@@ -219,7 +255,7 @@
       }
 
       .feature-content {
-        font-size: 1rem;
+        font-size: 0.9rem;
       }
     }
   </style>
@@ -251,6 +287,7 @@
   <main class="key-features-container">
     <!-- Header Section -->
     <div class="key-features-header">
+      <img src="./assets/images/knife kill SS.png" alt="" class="key-features-header-image">
       <h2>KEY FEATURES</h2>
       <h1>
         <span class="gradient-text-purple">REDEFINING</span>
